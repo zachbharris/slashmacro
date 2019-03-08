@@ -1,0 +1,9 @@
+{
+  "parser": "babel-eslint",
+  "extends": ["airbnb-base"],
+  "plugins": ["jest"],
+  "rules": {
+    "strict": 0,
+    "no-useless-escape": 0
+  }
+}
