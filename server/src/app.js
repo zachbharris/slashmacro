@@ -1,15 +1,27 @@
 import express from 'express';
 import cors from 'express-cors';
+import bodyParser from 'body-parser';
 
 // import routes
-import users from './routes/users';
+import router from './routes';
+// import users from './routes/users';
 
 const app = express();
 
-// CORS
+// body-parser middleware
+app.use(bodyParser.json());
+
+// CORS INITIALIZATION
 app.use(cors());
 
-app.get('/', (req, res) => res.status(200).send('Hello World'));
-app.get('/users', users);
+// REGISTER OUR ROUTES
+// all of our routes will be prefixed with /api
+app.use('/api', router);
+
+// ERROR HANDLING
+app.use((err, req, res, next) => {
+  console.log(err);
+  res.status(422).send({ error: err.message });
+});
 
 export default app;
