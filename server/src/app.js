@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'express-cors';
 import bodyParser from 'body-parser';
+import compression from 'compression';
 
 // import routes
 import router from './routes';
@@ -8,20 +9,17 @@ import router from './routes';
 
 const app = express();
 
-// body-parser middleware
-app.use(bodyParser.json());
-
 // CORS INITIALIZATION
 app.use(cors());
+
+// body-parser middleware
+app.use(bodyParser.json());
 
 // REGISTER OUR ROUTES
 // all of our routes will be prefixed with /api
 app.use('/api', router);
 
-// ERROR HANDLING
-app.use((err, req, res, next) => {
-  console.log(err);
-  res.status(422).send({ error: err.message });
-});
+// GZIP COMPRESSION
+app.use(compression());
 
 export default app;
