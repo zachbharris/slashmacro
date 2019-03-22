@@ -1,5 +1,3 @@
-
-
 /**
  * In order for us to use a custom proxy target from our .env file, we need to
  * implement custom proxy logic. The way create-react-app does this is retarded.
