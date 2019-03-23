@@ -30,11 +30,12 @@ app.use(cors());
 
 app.use(
   expressSession({
-    secret: "keyboard cat",
+    secret: keys.session.secret,
     resave: true,
     saveUninitialized: true,
     cookie: {
-      maxAge: 86400000 // 24 hours
+      // max age, hours, minutes, seconds, milliseconds
+      maxAge: 24 * 60 * 60 * 1000 // 24 hours
     }
   })
 );
