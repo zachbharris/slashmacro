@@ -3,12 +3,12 @@ const expressSession = require("express-session");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
-const passport = require("passport");
 const mongoose = require("mongoose");
 const keys = require("./config/keys");
 
 // invoke express application
 const app = express();
+const port = process.env.PORT || 8000;
 
 // connect to mongodb
 const db = mongoose.connection;
@@ -40,16 +40,10 @@ app.use(
   })
 );
 
-app.use(passport.initialize());
-app.use(passport.session());
-
-// passport setup
-require("./config/passport");
-
 // set up routes
 app.use("/auth", require("./routes/auth"));
 
-app.listen(8000, () => {
+app.listen(port, () => {
   console.log("App now listening on port 8000");
   console.log("http://localhost:8000");
 });
