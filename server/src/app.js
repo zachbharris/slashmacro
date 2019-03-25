@@ -1,14 +1,15 @@
 const express = require("express");
-const expressSession = require("express-session");
+const app = express();
+const port = process.env.PORT || 8000;
+
+const session = require("express-session");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const keys = require("./config/keys");
+const MongoStore = require("connect-mongo")(session);
 
-// invoke express application
-const app = express();
-const port = process.env.PORT || 8000;
+const keys = require("./config/keys");
 
 // connect to mongodb
 const db = mongoose.connection;
@@ -28,9 +29,13 @@ app.use(cookieParser());
 // Cross-Origin Resource Sharing
 app.use(cors());
 
+// sessions
 app.use(
-  expressSession({
+  session({
     secret: keys.session.secret,
+    store: new MongoStore({
+      mongooseConnection: mongoose.connection
+    }),
     resave: true,
     saveUninitialized: true,
     cookie: {
@@ -44,6 +49,6 @@ app.use(
 app.use("/auth", require("./routes/auth"));
 
 app.listen(port, () => {
-  console.log("App now listening on port 8000");
-  console.log("http://localhost:8000");
+  console.log(`App now listening on port ${port}`);
+  console.log(`http://localhost:${port}`);
 });

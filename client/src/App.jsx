@@ -1,21 +1,23 @@
-import React from "react";
-import { StoreProvider, createStore } from "easy-peasy";
+import React, { useEffect } from "react";
+import { useActions } from "easy-peasy";
 import { createGlobalStyle } from "styled-components";
 import "semantic-ui-css/semantic.min.css";
 
-import model from "./model";
 import Routes from "./routes";
 
-const store = createStore(model);
-
 const App = () => {
+  const userSession = useActions(actions => actions.getUserSession);
+  useEffect(() => {
+    userSession();
+  }, []);
+
   return (
-    <StoreProvider store={store}>
+    <>
       <GlobalStyles />
       <div className="app">
         <Routes />
       </div>
-    </StoreProvider>
+    </>
   );
 };
 

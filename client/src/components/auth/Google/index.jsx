@@ -4,10 +4,9 @@ import axios from "axios";
 
 const GoogleAuth = () => {
   const googleResponse = response => {
-    console.log(response);
     axios
       .post("/auth/google", response)
-      .then(res => console.log(res))
+      .then(res => console.log(res.data))
       .catch(err => console.log(err));
   };
 
