@@ -11,10 +11,6 @@ passport.use(
       callbackURL: "/auth/google/redirect"
     },
     (accessToken, refreshToken, profile, done) => {
-      // User.findOrCreate({ googleId: profile.id }, function(err, user) {
-      //   return done(err, user);
-      // });
-
       User.findOne({ googleId: profile.id }, (err, user) => {
         if (user) {
           done(null, user);

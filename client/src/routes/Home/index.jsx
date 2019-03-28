@@ -8,11 +8,19 @@ const Home = () => {
     axios.get("/auth/sessions").then(res => console.log(res));
   };
 
+  const logout = () => {
+    axios
+      .get("/auth/logout")
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  };
+
   return (
     <>
       {/* <GoogleAuth />
       <button onClick={cookie}>Cookie</button> */}
       <a href="http://localhost:8000/auth/google">Google Login Link</a>
+      <button onClick={logout}>logout</button>
     </>
   );
 };
