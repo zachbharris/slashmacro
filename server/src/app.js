@@ -1,54 +1,47 @@
 const express = require("express");
-const app = express();
-const port = process.env.PORT || 8000;
-
 const session = require("express-session");
+const app = express();
+
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const MongoStore = require("connect-mongo")(session);
+const passport = require("passport");
 
-const keys = require("./config/keys");
-
-// connect to mongodb
-const db = mongoose.connection;
-mongoose.connect(keys.mongodb.dbURI, { useNewUrlParser: true });
-db.on("error", console.error.bind(console, "connection error"));
-db.on("open", () => {
-  console.log("mongoose connected");
-});
-
-// body parser
+// BODY PARSER
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// cookie parser
+// COOKIE PARSER
 app.use(cookieParser());
 
-// Cross-Origin Resource Sharing
+// CORS
 app.use(cors());
 
-// sessions
+// EXPRESS SESSION
 app.use(
   session({
-    secret: keys.session.secret,
+    secret: process.env.SECRET,
     store: new MongoStore({
       mongooseConnection: mongoose.connection
     }),
     resave: true,
     saveUninitialized: true,
     cookie: {
-      // max age, hours, minutes, seconds, milliseconds
-      maxAge: 24 * 60 * 60 * 1000 // 24 hours
+      // max age: days, hours, minutes, seconds, milliseconds
+      maxAge: 1 * 24 * 60 * 60 * 1000 // 1 day / 24 hours
     }
   })
 );
 
-// set up routes
-app.use("/auth", require("./routes/auth"));
+// PASSPORT
+app.use(passport.initialize());
+app.use(passport.session());
+// TODO: import passport stuff
 
-app.listen(port, () => {
-  console.log(`App now listening on port ${port}`);
-  console.log(`http://localhost:${port}`);
-});
+// ROUTER
+app.use("/auth", require("./routes/auth"));
+app.use("/api", require("./routes/api"));
+
+module.exports = app;
