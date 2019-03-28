@@ -10,8 +10,9 @@ const Home = () => {
 
   return (
     <>
-      <GoogleAuth />
-      <button onClick={cookie}>Cookie</button>
+      {/* <GoogleAuth />
+      <button onClick={cookie}>Cookie</button> */}
+      <a href="http://localhost:8000/auth/google">Google Login Link</a>
     </>
   );
 };

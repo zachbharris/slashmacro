@@ -5,8 +5,11 @@ const User = mongoose.Schema({
   lastName: String,
   googleId: String,
   photo: String,
-  session: String,
-  macros: Array
+  macros: Array,
+  createdOn: {
+    type: Date,
+    default: new Date()
+  }
 });
 
 module.exports = mongoose.model("User", User);
