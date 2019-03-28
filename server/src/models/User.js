@@ -5,7 +5,8 @@ const User = mongoose.Schema({
   lastName: String,
   googleId: String,
   photo: String,
-  session: String
+  session: String,
+  macros: Array
 });
 
 module.exports = mongoose.model("User", User);
