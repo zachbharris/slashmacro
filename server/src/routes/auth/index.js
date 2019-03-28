@@ -19,7 +19,7 @@ router.get(
   "/google/redirect",
   passport.authenticate("google", { failureRedirect: "/login" }),
   (req, res) => {
-    res.send(req.user);
+    res.redirect(301, "http://localhost:3000");
   }
 );
 
