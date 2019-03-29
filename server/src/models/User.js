@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const findOrCreate = require("mongoose-find-or-create");
 
 const User = mongoose.Schema({
   displayName: String,
@@ -17,5 +18,7 @@ const User = mongoose.Schema({
     default: new Date()
   }
 });
+
+User.plugin(findOrCreate);
 
 module.exports = mongoose.model("User", User);

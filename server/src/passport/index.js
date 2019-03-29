@@ -11,23 +11,9 @@ passport.use(
       callbackURL: "/auth/google/redirect"
     },
     (accessToken, refreshToken, profile, done) => {
-      User.findOne({ googleId: profile.id }, (err, user) => {
-        if (user) {
-          done(null, user);
-        } else {
-          new User({
-            firstName: profile.name.givenName,
-            lastName: profile.name.familyName,
-            googleId: profile.id,
-            username: profile.displayName,
-            photo: profile.photos[0].value
-          })
-            .save()
-            .then(newUser => {
-              done(null, newUser);
-            });
-        }
-      });
+      User.findOrCreate({ googleId: profile.id }, (err, user) => {
+        done(err, user);
+      })
     }
   )
 );
