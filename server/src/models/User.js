@@ -6,7 +6,12 @@ const User = mongoose.Schema({
   lastName: String,
   googleId: String,
   photo: String,
-  macros: Array,
+  macros: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Macro"
+    }
+  ],
   createdOn: {
     type: Date,
     default: new Date()

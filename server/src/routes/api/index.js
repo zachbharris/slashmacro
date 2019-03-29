@@ -1,7 +1,9 @@
 const router = require("express").Router();
 
-router.get("/test", (req, res) => {
-  res.send("api");
-});
+const Macros = require("./Macros");
+const User = require("./User");
+
+router.get("/macros", Macros.getAllMacros);
+router.post("/macros", Macros.newMacro);
 
 module.exports = router;

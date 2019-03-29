@@ -17,6 +17,7 @@ mongoose.connection.once("open", () => console.log("Connected to MongoDB"));
 
 // Import our models
 require("./models/User");
+require("./models/Macro");
 
 app.set("port", port);
 const server = app.listen(app.get("port"), () => {
