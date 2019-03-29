@@ -2,9 +2,7 @@ const router = require("express").Router();
 const passport = require("passport");
 
 // GET USER SESSION
-router.get("/sessions", (req, res) => {
-  res.send(req.user);
-});
+router.get("/sessions", (req, res) => res.send(req.user));
 
 // GOOGLE AUTH
 router.get(

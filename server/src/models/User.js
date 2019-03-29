@@ -5,7 +5,10 @@ const User = mongoose.Schema({
   displayName: String,
   firstName: String,
   lastName: String,
-  googleId: String,
+  googleId: {
+    type: String,
+    select: false
+  },
   photo: String,
   macros: [
     {
