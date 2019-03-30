@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const findOrCreate = require("mongoose-find-or-create");
 
 const User = mongoose.Schema({
-  displayName: String,
+  username: String,
   firstName: String,
   lastName: String,
   googleId: {
