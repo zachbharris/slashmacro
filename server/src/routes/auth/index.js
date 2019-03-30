@@ -1,17 +1,15 @@
 const router = require("express").Router();
-const passport = require("passport");
 
 const Google = require("./google");
 
-// GET USER SESSION
+// USER SESSION
 router.get("/sessions", (req, res) => res.send(req.user));
 
-// GOOGLE AUTH
+// GOOGLE
 router.get("/google", Google.Auth);
-
-// GOOGLE REDIRECT
 router.get("/google/redirect", Google.Redirect.Auth, Google.Redirect.Success);
 
+// LOGOUT
 router.get("/logout", (req, res) => {
   req.logout();
   res.status(200).send("logout");
