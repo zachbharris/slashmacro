@@ -31,7 +31,7 @@ const Home = () => {
 
   const getUserMacros = () => {
     axios
-      .get("/user/macros")
+      .get("/api/user/macros")
       .then(res => console.log(res))
       .catch(err => console.log(err));
   };
